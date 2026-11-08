@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "tidemark-theme">
 <!ENTITY author    "Michael">
-<!ENTITY version   "2026.11.08.2">
+<!ENTITY version   "2026.11.08.3">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/FoggyMtnDrifter/unraid-tidemark-theme/main">
 <!ENTITY pluginURL "&gitURL;/&name;.plg">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
@@ -13,6 +13,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.12.0" icon="paint-brush">
 
 <CHANGES>
+###2026.11.08.3
+- Fix Community Applications search bar hidden behind the sidebar; center the notice banner over the content.
+
 ###2026.11.08.2
 - Fix sidebar icons, drop the active-item marker, always re-download files on update.
 
