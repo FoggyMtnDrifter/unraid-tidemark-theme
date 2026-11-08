@@ -1,0 +1,54 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "tidemark-theme">
+<!ENTITY author    "Michael">
+<!ENTITY version   "2026.11.08">
+<!ENTITY gitURL    "https://raw.githubusercontent.com/FoggyMtnDrifter/unraid-tidemark-theme/main">
+<!ENTITY pluginURL "&gitURL;/&name;.plg">
+<!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
+<!ENTITY themedir  "/usr/local/emhttp/plugins/dynamix/styles/themes">
+<!ENTITY boot      "/boot/config/plugins/&name;">
+]>
+
+<PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.12.0" icon="paint-brush">
+
+<CHANGES>
+###2026.11.08
+- Initial release: Tidemark theme (Geist type, Tide teal, hairline borders), follows system light/dark.
+</CHANGES>
+
+<!-- Cached on the flash drive so the theme is restored on every boot. -->
+<FILE Name="&boot;/tidemark.css">
+<URL>&gitURL;/tidemark.css</URL>
+</FILE>
+<FILE Name="&boot;/geist-variable.woff2">
+<URL>&gitURL;/fonts/geist-variable.woff2</URL>
+</FILE>
+<FILE Name="&boot;/geist-mono-variable.woff2">
+<URL>&gitURL;/fonts/geist-mono-variable.woff2</URL>
+</FILE>
+<FILE Name="&boot;/GEIST-LICENSE.txt">
+<URL>&gitURL;/fonts/GEIST-LICENSE.txt</URL>
+</FILE>
+
+<FILE Run="/bin/bash">
+<INLINE>
+mkdir -p &plugdir;/fonts
+cp -f &boot;/geist-variable.woff2 &boot;/geist-mono-variable.woff2 &boot;/GEIST-LICENSE.txt &plugdir;/fonts/
+cp -f &boot;/tidemark.css &themedir;/tidemark.css
+echo ""
+echo "Tidemark theme installed."
+echo "Select it under Settings > Display Settings > Dynamix color theme."
+echo ""
+</INLINE>
+</FILE>
+
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+rm -f &themedir;/tidemark.css
+rm -rf &plugdir; &boot;
+echo "Tidemark theme removed. If it was your active theme, pick another under Display Settings."
+</INLINE>
+</FILE>
+
+</PLUGIN>

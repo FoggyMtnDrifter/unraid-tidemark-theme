@@ -1,0 +1,331 @@
+/* Tidemark theme for the Unraid WebGUI.
+   Ported from Tidemark's design language (public/assets/app.css): Geist type, hairline borders, small radii,
+   deep-water neutrals, one chromatic color (Tide teal) and Buoy amber as the signal.
+   Follows the browser's light/dark preference, like Tidemark's "system" theme.
+   Installed as .../dynamix/styles/themes/tidemark.css, so Unraid lists it as "Tidemark" under Display Settings. */
+
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/plugins/tidemark-theme/fonts/geist-variable.woff2") format("woff2"); }
+@font-face { font-family: "Geist Mono"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/plugins/tidemark-theme/fonts/geist-mono-variable.woff2") format("woff2"); }
+
+/* ---- Tidemark tokens (light) ---------------------------------------------------------------------------- */
+:root {
+    --tm-canvas: #fafafa;
+    --tm-card: #ffffff;
+    --tm-muted: #f5f5f5;
+    --tm-accent: #f0f0f0;
+    --tm-border: #e5e5e5;
+    --tm-input: #d4d4d4;
+    --tm-fg: #0a0a0a;
+    --tm-fg-muted: #666666;
+    --tm-primary: #0a0a0a;
+    --tm-primary-fg: #fafafa;
+    --tm-brand: #0e7c86;
+    --tm-brand-fg: #ffffff;
+    --tm-brand-soft: #e6f3f2;
+    --tm-brand-ink: #0b6670;
+    --tm-brand-hover: #0b6a73;
+    --tm-destructive: #c81e1e;
+    --tm-success: #16803c;
+    --tm-warning: #b45309;
+    --tm-signal: #f5a524;
+    --tm-radius: 10px;
+    --tm-radius-md: 6px;
+    --tm-radius-sm: 4px;
+    --tm-shadow-pop: 0 1px 1px rgb(0 0 0 / 0.04), 0 8px 16px -4px rgb(0 0 0 / 0.08), 0 24px 32px -8px rgb(0 0 0 / 0.08);
+    --tm-font: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --tm-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: light;
+}
+/* ---- Tidemark tokens (dark) ----------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --tm-canvas: #000000;
+        --tm-card: #0a0a0a;
+        --tm-muted: #1a1a1a;
+        --tm-accent: #1f1f1f;
+        --tm-border: #262626;
+        --tm-input: #333333;
+        --tm-fg: #ededed;
+        --tm-fg-muted: #a1a1a1;
+        --tm-primary: #ededed;
+        --tm-primary-fg: #0a0a0a;
+        --tm-brand: #4fc3be;
+        --tm-brand-fg: #04181b;
+        --tm-brand-soft: #0f2f33;
+        --tm-brand-ink: #7dd6d1;
+        --tm-brand-hover: #6ad3ce;
+        --tm-destructive: #f87171;
+        --tm-success: #4ade80;
+        --tm-warning: #fbbf24;
+        --tm-shadow-pop: 0 1px 1px rgb(0 0 0 / 0.3), 0 8px 16px -4px rgb(0 0 0 / 0.5), 0 24px 32px -8px rgb(0 0 0 / 0.5);
+        color-scheme: dark;
+    }
+}
+
+/* ---- Map onto the variables Unraid's base stylesheets read ---------------------------------------------- */
+:root {
+    /* Unraid's brand orange/red are used directly all over the base CSS; point them at Tide teal. */
+    --orange-100: var(--tm-brand-soft);
+    --orange-300: var(--tm-brand-hover);
+    --orange-400: var(--tm-brand-hover);
+    --orange-500: var(--tm-brand);
+    --orange-800: var(--tm-brand);
+    --brand-orange: var(--tm-brand);
+    --brand-red: var(--tm-brand);
+
+    --font-sans: var(--tm-font);
+
+    --text-color: var(--tm-fg);
+    --blockquote-text-color: var(--tm-fg-muted);
+    --alt-text-color: var(--tm-fg-muted);
+    --disabled-text-color: color-mix(in srgb, var(--tm-fg-muted) 70%, var(--tm-canvas));
+    --inverse-text-color: var(--tm-canvas);
+    --link-text-color: var(--tm-brand-ink);
+
+    --background-color: var(--tm-canvas);
+    --opac-background-color: color-mix(in srgb, var(--tm-canvas) 95%, transparent);
+    --mild-background-color: var(--tm-card);
+    --alt-background-color: var(--tm-muted);
+    --usage-bar-background-color: var(--tm-border);
+    --usage-bar-used-background-color: var(--tm-brand);
+    --usage-disk-background-color: var(--tm-muted);
+    --inverse-background-color: var(--tm-fg);
+    --radio-background-color: var(--tm-muted);
+    --dashboard-background-color: var(--tm-card);
+    --dashboard-title-action-color: var(--tm-fg-muted);
+    --dashboard-icon-color: var(--tm-fg-muted);
+    --dashboard-border-color: var(--tm-border);
+
+    --border-color: var(--tm-border);
+    --disabled-border-color: var(--tm-border);
+    --input-border-color: var(--tm-input);
+    --disabled-input-border-color: var(--tm-border);
+    --disabled-input-background-color: var(--tm-muted);
+    --textarea-border-color: var(--tm-input);
+    --inverse-border-color: var(--tm-border);
+    --focus-input-border-color: var(--tm-brand);
+    --focus-input-background-color: transparent;
+    --table-border-color: var(--tm-border);
+    --table-alt-border-color: var(--tm-border);
+    --table-background-color: var(--tm-card);
+    --table-header-background-color: var(--tm-muted);
+    --hover-table-row-background-color: var(--tm-muted);
+
+    --footer-text: var(--tm-fg-muted);
+    --footer-background-color: var(--tm-card);
+
+    --small-shadow: none;
+    --hr-color: var(--tm-border);
+
+    --checkbox-color: var(--tm-input);
+    --checkbox-hover-color: var(--tm-brand);
+
+    --header-text-color: var(--customer-header-text-color, var(--tm-fg));
+    --header-text-primary: var(--tm-fg);
+    --header-background-color: var(--custom-header-background-color, var(--tm-card));
+    --title-header-background-color: var(--tm-muted);
+
+    --scrollbar-color: var(--tm-input);
+    --scrollbar-hover-color: var(--tm-fg-muted);
+
+    --bg-opacity-10: rgb(0 0 0 / 0.1);
+    --bg-opacity-30: rgb(0 0 0 / 0.3);
+
+    /* Buttons: shadcn "outline" -- hairline border, transparent fill; hover turns solid Tide teal. */
+    --button-text-color: var(--tm-fg);
+    --button-border: 1px solid var(--tm-input);
+    --button-background: transparent;
+    --button-background-size: auto;
+    --hover-button-border: 1px solid var(--tm-brand);
+    --hover-button-text-color: var(--tm-brand-fg);
+    --hover-button-background: var(--tm-brand);
+
+    --input-bg-color: transparent;
+    --focus-input-bg-color: transparent;
+    --shade-bg-color: var(--tm-card);
+
+    /* Dynamix component variables (dynamix-default.css) */
+    --dynamix-filetree-bg-color: var(--tm-card);
+    --dynamix-ui-dropdownchecklist-color: var(--tm-fg);
+    --dynamix-ui-dropdownchecklist-color-alt1: var(--tm-muted);
+    --dynamix-ui-dropdownchecklist-color-alt2: var(--tm-fg-muted);
+    --dynamix-sb-message-bg-color: var(--tm-card);
+    --dynamix-sb-message-text-color: var(--tm-fg);
+    --dynamix-sb-message-link-color: var(--tm-brand-ink);
+    --dynamix-sb-title-bg-color: var(--tm-muted);
+    --dynamix-sb-title-text-color: var(--tm-fg-muted);
+    --dynamix-sb-wrapper-bg-color: var(--tm-card);
+    --dynamix-sb-wrapper-border-color: var(--tm-border);
+    --dynamix-sb-wrapper-text-color: var(--tm-fg);
+    --dynamix-sb-body-text-color: var(--tm-fg);
+    --dynamix-sb-body-bg-color: var(--tm-card);
+    --dynamix-sweet-alert-text-color: var(--tm-fg);
+    --dynamix-sweet-alert-icon-bg-color: var(--tm-card);
+    --dynamix-tablesorter-thead-row-border-color: var(--tm-border);
+    --dynamix-tablesorter-thead-th-text-color: var(--tm-fg-muted);
+    --dynamix-tablesorter-thead-th-bg-color: var(--tm-muted);
+    --dynamix-tablesorter-tbody-row-alt-bg-color: var(--tm-card);
+    --dynamix-tablesorter-tbody-row-bg-color: var(--tm-card);
+    --dynamix-tablesorter-tbody-row-border-color: var(--tm-border);
+    --dynamix-select-bg-color: transparent;
+    --dynamix-select-box-shadow: none;
+    --dynamix-select-disabled-bg-color: var(--tm-muted);
+    --dynamix-select-disabled-border-color: var(--tm-border);
+    --dynamix-select-disabled-color: var(--tm-fg-muted);
+    --dynamix-box-text-color: var(--tm-fg);
+    --dynamix-box-inner-div-border-color: var(--tm-border);
+    --dynamix-tooltipster-sidetip-bg-from: var(--tm-card);
+    --dynamix-tooltipster-sidetip-bg-to: var(--tm-card);
+    --dynamix-tooltipster-sidetip-content-text-color: var(--tm-fg);
+    --dynamix-tooltipster-sidetip-arrow-bg-color: var(--tm-card);
+    --dynamix-tooltipster-sidetip-arrow-border-color: var(--tm-border);
+    --dynamix-tooltipster-sidetip-box-border-color: var(--tm-border);
+    --dynamix-awesomplete-text-color: var(--tm-fg);
+    --dynamix-awesomplete-list-bg-color: var(--tm-card);
+    --dynamix-awesomplete-list-bg-from-color: var(--tm-card);
+    --dynamix-awesomplete-list-bg-to-color: var(--tm-card);
+    --dynamix-awesomplete-list-border-color: var(--tm-border);
+    --dynamix-awesomplete-list-shadow-color: rgb(0 0 0 / 0.15);
+    --dynamix-awesomplete-list-before-bg-color: var(--tm-card);
+    --dynamix-awesomplete-list-item-hover-bg-color: var(--tm-muted);
+    --dynamix-awesomplete-list-item-hover-text-color: var(--tm-fg);
+    --dynamix-awesomplete-list-item-selected-bg-color: var(--tm-brand);
+    --dynamix-awesomplete-list-item-selected-text-color: var(--tm-brand-fg);
+    --dynamix-awesomplete-mark-bg-color: var(--tm-brand-soft);
+    --dynamix-awesomplete-mark-hover-bg-color: var(--tm-brand-soft);
+    --dynamix-awesomplete-mark-selected-bg-color: var(--tm-brand-soft);
+    --dynamix-jquery-ui-border-color: var(--tm-border);
+    --dynamix-jquery-ui-default-background: var(--tm-muted);
+    --dynamix-jquery-ui-header-color: var(--tm-fg);
+    --dynamix-jquery-ui-header-background: var(--tm-muted);
+    --dynamix-jquery-ui-content-color: var(--tm-fg);
+    --dynamix-jquery-ui-content-background: var(--tm-card);
+    --dynamix-jquery-ui-active-background: var(--tm-brand);
+    --dynamix-jquery-ui-button-text-color: var(--tm-fg);
+    --dynamix-jquery-ui-button-hover-color: var(--tm-brand-fg);
+    --dynamix-jquery-ui-button-background-start: transparent;
+    --dynamix-jquery-ui-button-background-end: transparent;
+}
+
+/* ---- Typography ---------------------------------------------------------------------------------------- */
+html, body, input, select, textarea, button, a.button { font-family: var(--tm-font); }
+body { font-feature-settings: "ss01" 0; text-rendering: optimizeLegibility; }
+code, pre, kbd, samp, .logLine, textarea.logs, #syslog, .terminal { font-family: var(--tm-mono); }
+h1, h2, h3, h4, h5, h6 { letter-spacing: -0.01em; }
+p { text-align: left; }
+::selection { background: color-mix(in srgb, var(--tm-brand) 28%, transparent); color: inherit; }
+::-moz-selection { background: color-mix(in srgb, var(--tm-brand) 28%, transparent); color: inherit; }
+a { text-decoration: none; }
+a:hover { color: var(--tm-brand-ink); }
+hr { border: 0; border-top: 1px solid var(--tm-border); }
+:focus-visible { outline: 2px solid var(--tm-brand); outline-offset: 2px; }
+
+/* Unraid rewrites this color on docker log pages based on a hardcoded theme list; keep it readable. */
+.logLine { color: var(--tm-fg) !important; }
+
+/* ---- Header & footer ----------------------------------------------------------------------------------- */
+#header {
+    color: var(--tm-fg);
+    background-color: var(--tm-card);
+    background-image: none;
+    border-bottom: 1px solid var(--tm-border);
+}
+#header a, #header .text-right a { color: var(--tm-fg); }
+#header a:hover { color: var(--tm-brand-ink); }
+#footer, div#footer {
+    color: var(--tm-fg-muted);
+    background-color: var(--tm-card);
+    border-top: 1px solid var(--tm-border);
+}
+
+/* ---- Cards (dashboard tiles, tables) ------------------------------------------------------------------- */
+div.title, span.left > div.title { border-bottom: 1px solid var(--tm-border); }
+div.title span.left, div.title span.right { letter-spacing: -0.005em; }
+table, .tablesorter { border-color: var(--tm-border); }
+table thead td, table thead th, table.tablesorter thead th, table.share_status thead td {
+    color: var(--tm-fg-muted);
+    background-color: var(--tm-muted);
+    font-weight: 500;
+}
+table tbody td, table.tablesorter tbody td { border-color: var(--tm-border); }
+table tbody tr:hover td { background-color: var(--tm-muted); }
+
+/* ---- Buttons ------------------------------------------------------------------------------------------- */
+input[type="button"], input[type="reset"], input[type="submit"], button, button[type="button"], a.button {
+    font-family: var(--tm-font);
+    font-weight: 500;
+    font-size: 1.3rem;
+    letter-spacing: 0;
+    text-transform: none;
+    border-radius: var(--tm-radius-md);
+    padding: 7px 14px;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button:hover, button[type="button"]:hover, a.button:hover {
+    border: var(--hover-button-border);
+    color: var(--hover-button-text-color);
+    background: var(--hover-button-background);
+}
+/* The first submit button on a form ("Apply", "Done") is the primary action: solid, like Tidemark's .btn.primary. */
+input[type="submit"]:not([disabled]), button[type="submit"]:not([disabled]) {
+    background: var(--tm-primary);
+    color: var(--tm-primary-fg);
+    border-color: var(--tm-primary);
+}
+input[type="submit"]:not([disabled]):hover, button[type="submit"]:not([disabled]):hover {
+    background: var(--tm-brand);
+    border-color: var(--tm-brand);
+    color: var(--tm-brand-fg);
+}
+
+/* ---- Inputs -------------------------------------------------------------------------------------------- */
+input[type="text"], input[type="password"], input[type="number"], input[type="url"], input[type="email"],
+input[type="date"], input[type="file"], textarea, select {
+    font-family: var(--tm-font);
+    border: 1px solid var(--tm-input);
+    border-radius: var(--tm-radius-md);
+    background-color: transparent;
+    color: var(--tm-fg);
+}
+select { padding-left: 0.8rem; padding-right: 2.4rem; background-position: calc(100% - 14px) 50%, calc(100% - 10px) 50%; }
+input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus, input[type="url"]:focus,
+input[type="email"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
+    border-color: var(--tm-brand);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--tm-brand) 20%, transparent);
+    background-color: transparent;
+}
+input[disabled], textarea[disabled], select[disabled] { background-color: var(--tm-muted); opacity: 0.6; }
+
+/* ---- Menus, popups, dialogs ---------------------------------------------------------------------------- */
+.dropdown-menu, .ui-dialog, .ui-widget-content, .sweet-alert, .tooltipster-sidetip .tooltipster-box, div.context-menu, .dropdown-content {
+    border: 1px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    box-shadow: var(--tm-shadow-pop);
+}
+.sweet-alert { background-color: var(--tm-card); color: var(--tm-fg); }
+.sweet-alert h2 { color: var(--tm-fg); }
+.sweet-alert p { color: var(--tm-fg-muted); }
+.sweet-alert button.confirm { background-color: var(--tm-primary) !important; color: var(--tm-primary-fg); border-radius: var(--tm-radius-md); }
+.ui-dialog .ui-dialog-titlebar { background: var(--tm-muted); border-bottom: 1px solid var(--tm-border); color: var(--tm-fg); }
+
+/* ---- Usage bars (array, disks, CPU, RAM) --------------------------------------------------------------- */
+.usage-bar, span.usage-disk, .meter { border-radius: 999px; }
+.usage-bar > span, span.usage-disk > span, .meter > span { background-color: var(--tm-brand); border-radius: 999px; }
+.usage-bar > span.warn, span.usage-disk > span.warn { background-color: var(--tm-signal); }
+.usage-bar > span.crit, span.usage-disk > span.crit { background-color: var(--tm-destructive); }
+
+/* ---- Status colors: keep Unraid's semantic classes but use Tidemark's tones ----------------------------- */
+.green-text, .green-on, .greenbar { color: var(--tm-success); }
+.orange-text, .orange-on, .orangebar, i.fa-warning { color: var(--tm-warning); }
+.red-text, .red-on, .redbar { color: var(--tm-destructive); }
+.blue-text { color: var(--tm-brand-ink); }
+.alert { color: var(--tm-destructive); }
+.warning, .warn { color: var(--tm-warning); }
+
+/* ---- Scrollbars ---------------------------------------------------------------------------------------- */
+* { scrollbar-color: var(--tm-input) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--tm-input); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: var(--tm-fg-muted); background-clip: padding-box; border: 2px solid transparent; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation-duration: 0.01ms !important; } }
