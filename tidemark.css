@@ -328,4 +328,61 @@ input[disabled], textarea[disabled], select[disabled] { background-color: var(--
 ::-webkit-scrollbar-thumb { background: var(--tm-input); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
 ::-webkit-scrollbar-thumb:hover { background: var(--tm-fg-muted); background-clip: padding-box; border: 2px solid transparent; }
 
+/* ---- Layout: Tidemark's left sidebar ------------------------------------------------------------------- */
+/* Unraid renders the same #menu markup for every theme and only restyles it for its own sidebar themes.
+   Custom themes get the top bar, so we turn #menu into a fixed 240px sidebar with CSS (>= 768px; phones keep the top bar). */
+:root { --tm-side-w: 240px; }
+@media (min-width: 768px) {
+    #menu {
+        position: fixed; top: 0; left: 0; bottom: 0; width: var(--tm-side-w); z-index: 2000;
+        display: flex; flex-direction: column; justify-content: space-between; gap: 16px;
+        padding: 12px; box-sizing: border-box; overflow-y: auto; overflow-x: hidden;
+        background: var(--tm-card); border-right: 1px solid var(--tm-border);
+    }
+    #menu .nav-tile, #menu .nav-tile.right {
+        flex-direction: column; justify-content: flex-start; align-items: stretch;
+        height: auto; min-height: 0; line-height: 1.5; gap: 2px; padding: 0;
+        background: transparent; overflow: visible; font-size: 14px; letter-spacing: 0;
+    }
+    #menu .nav-tile.right { border-top: 1px solid var(--tm-border); padding-top: 12px; }
+
+    .nav-item { display: block; text-align: left; border-radius: var(--tm-radius-md); }
+    .nav-item::after { display: none; }
+    .nav-item a {
+        display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px;
+        font-size: 14px; font-weight: 500; letter-spacing: 0; text-transform: none;
+        color: var(--tm-fg-muted); border-radius: var(--tm-radius-md);
+    }
+    .nav-item a:hover, .nav-item:hover a { color: var(--tm-fg); background: var(--tm-accent); }
+    .nav-item.active a, .nav-item.active { color: var(--tm-fg); }
+    .nav-item.active a { background: var(--tm-muted); box-shadow: inset 2px 0 0 var(--tm-brand); }
+    .nav-item:hover, .nav-item.active { background: transparent; }
+
+    /* Utility buttons (Log, Terminal, Help...) show their label next to the icon. */
+    .nav-item.util a span { display: inline; }
+    .nav-item.util a b, .nav-item.util a img { display: inline-block; width: 16px; text-align: center; font-size: 14px; }
+    .nav-item.util a img { height: 16px; object-fit: contain; }
+
+    /* Section icons, matched on the link target. */
+    .nav-tile:not(.right) .nav-item a::before {
+        font-family: FontAwesome; font-weight: normal; font-size: 15px; width: 16px; text-align: center; color: currentColor; content: "\f111";
+    }
+    .nav-tile a[href="/Dashboard"]::before { content: "\f0e4"; }
+    .nav-tile a[href="/Main"]::before      { content: "\f0a0"; }
+    .nav-tile a[href="/Shares"]::before    { content: "\f07c"; }
+    .nav-tile a[href="/Users"]::before     { content: "\f0c0"; }
+    .nav-tile a[href="/Settings"]::before  { content: "\f013"; }
+    .nav-tile a[href="/Plugins"]::before   { content: "\f12e"; }
+    .nav-tile a[href="/Docker"]::before    { content: "\f1b3"; }
+    .nav-tile a[href="/VMs"]::before       { content: "\f108"; }
+    .nav-tile a[href="/Apps"]::before      { content: "\f290"; }
+    .nav-tile a[href="/Tools"]::before     { content: "\f0ad"; }
+
+    /* Content moves right of the sidebar; the header becomes Tidemark's top toolbar. */
+    #header { margin-left: var(--tm-side-w); width: calc(100% - var(--tm-side-w)); }
+    #displaybox { padding-left: calc(var(--tm-side-w) + 2rem); padding-right: 2rem; }
+    #footer { left: var(--tm-side-w); width: calc(100% - var(--tm-side-w)); }
+    .nav-user { right: 20px; }
+}
+
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation-duration: 0.01ms !important; } }

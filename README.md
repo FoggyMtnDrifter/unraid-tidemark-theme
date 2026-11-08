@@ -1,6 +1,6 @@
 # Tidemark theme for Unraid
 
-The look of [Tidemark](https://github.com/tidemark-analytics/tidemark) for the Unraid WebGUI: Geist type, hairline borders, small radii, deep-water neutrals and a single Tide teal accent. It follows your browser's light/dark preference, like Tidemark's "system" theme.
+The look of [Tidemark](https://github.com/tidemark-analytics/tidemark) for the Unraid WebGUI: Geist type, hairline borders, small radii, deep-water neutrals and a single Tide teal accent, with Tidemark's left sidebar navigation (icons, active-item marker, utility buttons at the bottom). It follows your browser's light/dark preference, like Tidemark's "system" theme.
 
 ## Install
 
@@ -21,7 +21,7 @@ Unraid builds the theme dropdown from `styles/themes/*.css` and loads `<name>.cs
 ## Known limits
 
 - Written against the current Unraid WebGUI sources (`default-base.css`, `ThemeHelper.php`), **not yet tested on a live server**. Expect a few pages that need selector tweaks; open an issue with a screenshot.
-- Unraid's `ThemeHelper` only knows its four built-in theme names, so a custom theme gets the top-navigation layout and no dark/light flag. Docker log text color is overridden in the CSS for that reason.
+- Unraid's `ThemeHelper` only knows its four built-in theme names, so a custom theme gets no dark/light flag (Docker log text color is overridden in the CSS) and the top-bar markup. The sidebar is done in CSS (`#menu` is made `position: fixed`) on screens 768px and wider; phones keep Unraid's top bar.
 - Light/dark follows the OS/browser, not an in-app toggle.
 - Update the `gitURL` entity in `tidemark-theme.plg` if you host the repo somewhere other than `FoggyMtnDrifter/unraid-tidemark-theme`.
 

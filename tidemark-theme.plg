@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "tidemark-theme">
 <!ENTITY author    "Michael">
-<!ENTITY version   "2026.11.08">
+<!ENTITY version   "2026.11.08.1">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/FoggyMtnDrifter/unraid-tidemark-theme/main">
 <!ENTITY pluginURL "&gitURL;/&name;.plg">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
@@ -13,6 +13,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.12.0" icon="paint-brush">
 
 <CHANGES>
+###2026.11.08.1
+- Tidemark sidebar navigation layout (CSS-only, 768px and wider).
+
 ###2026.11.08
 - Initial release: Tidemark theme (Geist type, Tide teal, hairline borders), follows system light/dark.
 </CHANGES>
