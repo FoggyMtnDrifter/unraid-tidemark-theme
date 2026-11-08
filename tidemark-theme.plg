@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "tidemark-theme">
 <!ENTITY author    "Michael">
-<!ENTITY version   "2026.11.08.1">
+<!ENTITY version   "2026.11.08.2">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/FoggyMtnDrifter/unraid-tidemark-theme/main">
 <!ENTITY pluginURL "&gitURL;/&name;.plg">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
@@ -13,12 +13,22 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" pluginURL="&pluginURL;" min="6.12.0" icon="paint-brush">
 
 <CHANGES>
+###2026.11.08.2
+- Fix sidebar icons, drop the active-item marker, always re-download files on update.
+
 ###2026.11.08.1
 - Tidemark sidebar navigation layout (CSS-only, 768px and wider).
 
 ###2026.11.08
 - Initial release: Tidemark theme (Geist type, Tide teal, hairline borders), follows system light/dark.
 </CHANGES>
+
+<!-- Unraid skips downloading files that already exist, so clear the cache first to always pull fresh copies. -->
+<FILE Run="/bin/bash">
+<INLINE>
+rm -f &boot;/tidemark.css &boot;/geist-variable.woff2 &boot;/geist-mono-variable.woff2 &boot;/GEIST-LICENSE.txt
+</INLINE>
+</FILE>
 
 <!-- Cached on the flash drive so the theme is restored on every boot. -->
 <FILE Name="&boot;/tidemark.css">
