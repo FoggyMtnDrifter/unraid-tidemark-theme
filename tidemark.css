@@ -328,6 +328,10 @@ input[disabled], textarea[disabled], select[disabled] { background-color: var(--
 ::-webkit-scrollbar-thumb { background: var(--tm-input); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
 ::-webkit-scrollbar-thumb:hover { background: var(--tm-fg-muted); background-clip: padding-box; border: 2px solid transparent; }
 
+/* Community Applications builds its Spotlight badge URL from the theme name (spotlight_<theme>.png) and only hosts
+   images for Unraid's four built-in themes, so a custom theme gets a broken, flickering image. Hide it. */
+.Theme--tidemark img.spotlightIcon { display: none !important; }
+
 /* ---- Layout: Tidemark's left sidebar ------------------------------------------------------------------- */
 /* Unraid renders the same #menu markup for every theme and only restyles it for its own sidebar themes.
    Custom themes get the top bar, so we turn #menu into a fixed 240px sidebar with CSS (>= 768px; phones keep the top bar). */
